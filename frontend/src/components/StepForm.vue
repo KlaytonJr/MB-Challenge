@@ -202,6 +202,24 @@ function populateReviewStep() {
 
 function submitForm() {
     console.log('👉 state.formData => ', state.formData);
+    alert('Formulário enviado com sucesso!');
+
+    showStep(1);
+
+    // Limpar todos os campos do formulário e em seguida os inputs e radio selections
+    Object.keys(state.formData).forEach(key => {
+        state.formData[key] = '';
+    });
+
+    const inputs = document.querySelectorAll('.registration-form__input');
+    inputs.forEach(input => {
+        input.value = '';
+    });
+
+    const radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(radio => {
+        radio.checked = false;
+    });
 }
 
 onMounted(() => {
