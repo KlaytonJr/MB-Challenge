@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, reactive } from 'vue'
+import { validateEmail, validateCNPJ, validateCPF, validateDate, validatePhone } from '../helpers/validations'
 
 const state = reactive({
     currentStep: 1,
@@ -14,13 +15,13 @@ const state = reactive({
         password: '',
     },
     validations: {
-        email: { required: true, email: true },
+        email: { required: true, email: true, label: 'E-mail' },
         user_type: { required: true },
-        name: { required: true },
-        cpf_or_cnpj: { required: true },
-        birth_date: { required: true },
-        phone: { required: true },
-        password: { required: true },
+        name: { required: true, label: 'Nome ou Razão Social' },
+        cpf_or_cnpj: { required: true, cpfOrCnpj: true, label: 'CPF ou CNPJ' },
+        birth_date: { required: true, date: true, label: 'Data' },
+        phone: { required: true, phone: true, label: 'Telefone' },
+        password: { required: true, minLength: 6, label: 'Senha' },
     }
 })
 
@@ -81,20 +82,16 @@ function toggleFields() {
     const pjFields = document.getElementsByClassName('pjFields');
 
     if (personType === 'pf') {
-        // Iterar sobre pfFields e definir o estilo
         for (let i = 0; i < pfFields.length; i++) {
             pfFields[i].style.display = 'block';
         }
-        // Iterar sobre pjFields e ocultar os campos PJ
         for (let i = 0; i < pjFields.length; i++) {
             pjFields[i].style.display = 'none';
         }
     } else if (personType === 'pj') {
-        // Iterar sobre pfFields e definir o estilo
         for (let i = 0; i < pfFields.length; i++) {
             pfFields[i].style.display = 'none';
         }
-        // Iterar sobre pjFields e ocultar os campos PJ
         for (let i = 0; i < pjFields.length; i++) {
             pjFields[i].style.display = 'block';
         }
@@ -120,33 +117,79 @@ function isElementVisible(element) {
     while (currentElement) {
         const computedStyle = window.getComputedStyle(currentElement);
         if (computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || computedStyle.opacity === '0') {
-            return false; // Se algum dos pais estiver oculto, o elemento não é visível
+            return false;
         }
         currentElement = currentElement.parentElement;
     }
 
-    return true; // O elemento e todos os seus pais são visíveis
+    return true;
 }
 
 function validateStep(step) {
     const stepElements = document.querySelectorAll(`.registration-form__step--${step} [data-validate]`);
     let isValid = true;
-    stepElements.forEach(element => {
-        if (isElementVisible(element)) {
-            const validationType = element.getAttribute('data-validate');
-            const value = element.value;
-            const isRequired = state.validations[validationType].required;
-            
-            if (isRequired && !value) {
-                isValid = false;
-                element.classList.add('is-invalid');
+
+    const addInvalidClass = (message, element) => {
+        isValid = false;
+        element?.classList.add('is-invalid');
+        alert(message);
+        return false;
+    };
+
+    // Validar o preenchimento da seleção
+    const radioGroups = [...stepElements].filter(el => el.type === 'radio')
+        .reduce((groups, radio) => {
+            groups[radio.name] = groups[radio.name] || [];
+            groups[radio.name].push(radio);
+            return groups;
+        }, {});
+
+    for (const groupName in radioGroups) {
+        const isChecked = radioGroups[groupName].some(radio => radio.checked);
+        if (!isChecked) {
+            return addInvalidClass(`Por favor, selecione uma opção de cadastro.`);
+        } else {
+            radioGroups[groupName].forEach(radio => radio.classList.remove('is-invalid'));
+        }
+    }
+
+    // Validação dos demais campos
+    for (const element of stepElements) {
+        if (!isElementVisible(element) || element.type === 'radio') continue;
+
+        const validationType = element.getAttribute('data-validate');
+        const value = element.value;
+        const validation = state.validations[validationType] || {};
+        const isRequired = validation.required;
+        const minLength = validation.minLength || 0;
+
+        if (isRequired && !value) {
+            return addInvalidClass(`O campo "${state.validations[validationType].label || element.name}" é obrigatório.`, element);
+        } else if (validationType === 'email' && !validateEmail(value)) {
+            return addInvalidClass('Por favor, insira um endereço de email válido (ex: exemplo@dominio.com).', element);
+        } else if (validationType === 'cpf_or_cnpj') {
+            const validateFn = state.formData.user_type === 'pf' ? validateCPF : validateCNPJ;
+            if (!validateFn(value)) {
+                const label = state.formData.user_type === 'pf' ? 'CPF' : 'CNPJ';
+                return addInvalidClass(`Por favor, insira um ${label} válido.`, element);
             } else {
                 element.classList.remove('is-invalid');
             }
+        } else if (validationType === 'birth_date' && !validateDate(value)) {
+            return addInvalidClass('Por favor, insira uma data válida no formato YYYY-MM-DD.', element);
+        } else if (validationType === 'phone' && !validatePhone(value)) {
+            return addInvalidClass('Por favor, insira um telefone válido no formato (XX) XXXXX-XXXX.', element);
+        } else if (minLength && value.length < minLength) {
+            return addInvalidClass(`O campo "Senha" deve ter pelo menos ${minLength} caracteres.`, element);
+        } else {
+            element.classList.remove('is-invalid');
         }
-    });
+    }
+
     return isValid;
 }
+
+
 
 function populateReviewStep() {
     Object.keys(state.formData).forEach(key => {
@@ -175,4 +218,8 @@ onMounted(() => {
     </div>
 </template>
 
-<style scoped></style>
+<style>
+.is-invalid {
+    border: 1px solid red;
+}
+</style>
