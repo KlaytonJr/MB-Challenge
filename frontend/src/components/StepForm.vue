@@ -222,4 +222,57 @@ onMounted(() => {
 .is-invalid {
     border: 1px solid red;
 }
+
+.registration-form {
+    box-sizing: border-box;
+    width: 400px;
+}
+
+.registration-form__step {
+    text-align: start;
+}
+
+.registration-form__actual-step {
+    color: #FF9900;
+}
+
+.registration-form__label, .registration-form__input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.registration-form__label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.registration-form__input {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    margin-bottom: 15px;
+}
+
+.registration-form__checkbox-group {
+    display: flex;
+    gap: 30px;
+}
+
+.registration-form__actions {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.registration-form__actions button {
+    flex: 1;
+    background: #FF9900;
+    color: #fff;
+}
+
+.registration-form__actions .registration-form__btn--prev {
+    background: #fff;
+    border: 2px solid #FF9900;
+    color: #FF9900;
+}
 </style>
