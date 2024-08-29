@@ -78,9 +78,13 @@ Inicie o servidor
 ```
 ## Performance
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/KlaytonJr/MB-Challenge/blob/main/screenshots/performance-mb-challenge.png?raw=true)
+
+A nível de documentação, a Accessibilidade da aplicação sofreu uma queda devido a utilização de fonte branca no botão com o background amarelado. Isso acaba reduzindo a acessibilidade, pois a depender do usuário essas cores com tonalidades tão próxima podem causar dificuldade de leitura no texto do botão.
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Gif](https://github.com/KlaytonJr/MB-Challenge/blob/main/screenshots/mb-challenge.gif?raw=true)
+
+![App Screenshot Success](https://github.com/KlaytonJr/MB-Challenge/blob/main/screenshots/success-screenshot.png?raw=truee)
 
