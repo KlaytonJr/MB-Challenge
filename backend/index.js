@@ -26,14 +26,21 @@ app.get('/registration', (req, res) => {
 
 // Endpoint [POST] /registration
 app.post('/registration', (req, res) => {
-    const { name, email, password } = req.body;
+    const { 
+        email,
+        user_type,
+        name,
+        cpf_or_cnpj,
+        birth_date,
+        phone,
+        password,
+    } = req.body;
 
-    // Validação simples dos dados recebidos
-    if (!name || !email || !password) {
-        return res.status(400).json({ error: 'Todos os campos devem ser preenchidos' });
+    // Validação dos dados recebidos
+    if (!email || !user_type || !name || !cpf_or_cnpj || !birth_date || !phone || !password) {
+        return res.status(400).json({ error: 'Todos os campos devem ser preenchidos.' });
     }
 
-    // Simulação de sucesso no cadastro
     res.status(200).json({ message: 'Cadastro realizado com sucesso!' });
 });
 
