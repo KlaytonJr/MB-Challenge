@@ -200,13 +200,10 @@ function populateReviewStep() {
     });
 }
 
-function submitForm() {
-    console.log('👉 state.formData => ', state.formData);
-    alert('Formulário enviado com sucesso!');
-
+function reset() {
     showStep(1);
 
-    // Limpar todos os campos do formulário e em seguida os inputs e radio selections
+    // Limpar todos os campos
     Object.keys(state.formData).forEach(key => {
         state.formData[key] = '';
     });
@@ -220,6 +217,29 @@ function submitForm() {
     radios.forEach(radio => {
         radio.checked = false;
     });
+}
+
+async function submitForm() {
+    try {
+        const response = await fetch('http://localhost:3000/registration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state.formData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message);
+            reset();
+        } else {
+            alert(result.error || 'Ocorreu um erro ao enviar o formulário.');
+        }
+    } catch (error) {
+        alert('Erro ao enviar o formulário. Tente novamente mais tarde.');
+    }
 }
 
 onMounted(() => {
