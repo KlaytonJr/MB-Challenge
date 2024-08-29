@@ -7,25 +7,28 @@
         
         <div class="registration-form__checkbox-group">
             <label>
-                <input type="radio" name="user-type" value="pf" class="registration-form__checkbox" required />
+                <input type="radio" name="user-type" value="pf" class="registration-form__checkbox" required data-validate="user_type" />
                 Pessoa Física
             </label>
             <label>
-                <input type="radio" name="user-type" value="pj" class="registration-form__checkbox" required />
+                <input type="radio" name="user-type" value="pj" class="registration-form__checkbox" required data-validate="user_type" />
                 Pessoa Jurídica
             </label>
         </div>
         
-        <button class="registration-form__btn registration-form__btn--next">Continuar</button>
+        <div class="registration-form__actions">
+            <button class="registration-form__btn registration-form__btn--next">Continuar</button>
+        </div>
     </div>
 
     <div class="registration-form__step registration-form__step--2" style="display:none;">
         <p class="registration-form__steps">Etapa <span class="registration-form__actual-step">2</span> de 4:</p>
-        <h2 class="registration-form__title"><span class="registration-form__step-2-title"></span></h2>
-
+        
         <div class="pfFields" style="display:none;">
+            <h2 class="registration-form__title">Pessoa Física</h2>
+
             <label class="registration-form__label" for="name">Nome</label>
-            <input type="text" name="name" class="registration-form__input" placeholder="Digite o nome" required data-validate="name" />
+            <input type="text" name="name" class="registration-form__input" placeholder="Digite o nome" label="Nome" required data-validate="name" />
     
             <label class="registration-form__label" for="cpf_or_cnpj">CPF</label>
             <input type="text" name="cpf_or_cnpj" class="registration-form__input" placeholder="Digite o CPF" required data-validate="cpf_or_cnpj" />
@@ -35,6 +38,8 @@
         </div>
 
         <div class="pjFields" style="display:none;">
+            <h2 class="registration-form__title">Pessoa Jurídica</h2>
+
             <label class="registration-form__label" for="name">Razão Social</label>
             <input type="text" name="name" class="registration-form__input" placeholder="Digite a razão social" required data-validate="name" />
     
@@ -48,8 +53,10 @@
         <label class="registration-form__label" for="phone">Telefone</label>
         <input type="text" name="phone" class="registration-form__input" placeholder="Digite seu telefone" required data-validate="phone" />
 
-        <button class="registration-form__btn registration-form__btn--prev">Voltar</button>
-        <button class="registration-form__btn registration-form__btn--next">Continuar</button>
+        <div class="registration-form__actions">
+            <button class="registration-form__btn registration-form__btn--prev">Voltar</button>
+            <button class="registration-form__btn registration-form__btn--next">Continuar</button>
+        </div>
     </div>
 
     <div class="registration-form__step registration-form__step--3" style="display:none;">
@@ -59,8 +66,10 @@
         <label class="registration-form__label" for="password">Sua Senha</label>
         <input type="password" name="password" class="registration-form__input" placeholder="Digite sua senha" required data-validate="password" />
 
-        <button class="registration-form__btn registration-form__btn--prev">Voltar</button>
-        <button class="registration-form__btn registration-form__btn--next">Continuar</button>
+        <div class="registration-form__actions">
+            <button class="registration-form__btn registration-form__btn--prev">Voltar</button>
+            <button class="registration-form__btn registration-form__btn--next">Continuar</button>
+        </div>
     </div>
 
     <div class="registration-form__step registration-form__step--4" style="display:none;">
@@ -98,7 +107,9 @@
         <label class="registration-form__label" for="password">Sua Senha</label>
         <input type="text" name="password" class="registration-form__input" placeholder="Digite sua senha" required data-validate="password" />
 
-        <button class="registration-form__btn registration-form__btn--prev">Voltar</button>
-        <button class="registration-form__btn registration-form__btn--submit">Cadastrar</button>
+        <div class="registration-form__actions">
+            <button class="registration-form__btn registration-form__btn--prev">Voltar</button>
+            <button class="registration-form__btn registration-form__btn--submit">Cadastrar</button>
+        </div>
     </div>
 </div>
