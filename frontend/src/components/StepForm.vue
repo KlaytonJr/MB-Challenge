@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, getCurrentInstance } from 'vue'
 import { validateEmail, validateCNPJ, validateCPF, validateDate, validatePhone } from '../helpers/validations'
+
+const { proxy } = getCurrentInstance();
 
 const state = reactive({
     currentStep: 1,
@@ -30,7 +32,13 @@ async function getForm() {
         const response = await fetch('http://localhost:3000/registration');
         state.formHtml = await response.text();
     } catch (error) {
-        alert('Erro ao carregar o formulário.');
+        proxy.$snack.notify({
+            position: "top-center",
+            type: "error",
+            duration: 3000,
+            title: "Enviado",
+            message: 'Erro ao carregar o formulário.',
+        });
     }
 }
 
@@ -50,7 +58,7 @@ function addEventListeners() {
     });
 }
 
-function handleNextStep(event) {
+function handleNextStep() {
     if(validateStep(state.currentStep)) {
         if (state.currentStep === 1) {
             showStep(2);
@@ -61,7 +69,7 @@ function handleNextStep(event) {
     }
 }
 
-function handlePrevStep(event) {
+function handlePrevStep() {
     showStep(state.currentStep - 1);
 }
 
@@ -132,7 +140,13 @@ function validateStep(step) {
     const addInvalidClass = (message, element) => {
         isValid = false;
         element?.classList.add('is-invalid');
-        alert(message);
+        proxy.$snack.notify({
+            position: "top-center",
+            type: "error",
+            duration: 3000,
+            title: "Enviado",
+            message,
+        });
         return false;
     };
 
@@ -220,6 +234,10 @@ function reset() {
 }
 
 async function submitForm() {
+    if (!validateStep(4)) {
+        return;
+    }
+
     try {
         const response = await fetch('http://localhost:3000/registration', {
             method: 'POST',
@@ -232,13 +250,32 @@ async function submitForm() {
         const result = await response.json();
 
         if (response.ok) {
-            alert(result.message);
+            proxy.$snack.notify({
+                position: "top-center",
+                type: "success",
+                duration: 3000,
+                title: "Enviado",
+                message: result.message,
+            });
+
             reset();
         } else {
-            alert(result.error || 'Ocorreu um erro ao enviar o formulário.');
+            proxy.$snack.notify({
+                position: "top-center",
+                type: "error",
+                duration: 3000,
+                title: "Enviado",
+                message: result.error || 'Ocorreu um erro ao enviar o formulário.',
+            });
         }
     } catch (error) {
-        alert('Erro ao enviar o formulário. Tente novamente mais tarde.');
+        proxy.$snack.notify({
+            position: "top-center",
+            type: "error",
+            duration: 3000,
+            title: "Enviado",
+            message: 'Erro ao enviar o formulário. Tente novamente mais tarde.',
+        });
     }
 }
 
