@@ -1,13 +1,16 @@
 
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
-const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
+
 // Middleware para parsear JSON do corpo das requisições
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/health', (req, res) => {
     res.status(200).json({ 
