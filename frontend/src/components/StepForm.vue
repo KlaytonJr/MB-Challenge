@@ -250,7 +250,11 @@ onMounted(() => {
     padding: 10px 15px;
     border-radius: 5px;
     border: 1px solid gray;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.registration-form__checkbox-group {
+    margin-bottom: 20px;
 }
 
 .registration-form__checkbox-group {
