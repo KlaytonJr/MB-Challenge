@@ -84,7 +84,7 @@ A nível de documentação, a Accessibilidade da aplicação sofreu uma queda de
 
 ## Screenshots
 
-![App Gif](https://github.com/KlaytonJr/MB-Challenge/blob/main/screenshots/mb-challenge.gif?raw=true)
+<img src="https://github.com/KlaytonJr/MB-Challenge/blob/main/screenshots/mb-challenge.gif?raw=true" alt="App Gif" style="width: 100%; height: auto;">
 
 ![App Screenshot Success](https://github.com/KlaytonJr/MB-Challenge/blob/main/screenshots/success-screenshot.png?raw=truee)
 
