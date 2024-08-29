@@ -3,7 +3,7 @@
 
 <h1 align="center">Mercado Bitcoin Challenge</h1>
 
-<p align="center">Desafio técnico para vaga de Desenvolvedor Frontend Senior. Aplicação de um formulário com steps e validações de campos.</p>
+<p align="center">Desafio técnico para vaga de Desenvolvedor Frontend Senior. Aplicação de um formulário disponibilizado pelo backend com steps e validações de campos.</p>
 
 <p align="center">
     <img alt="Static Badge" src="https://img.shields.io/badge/Vue.js-123?logo=vue.js&style=flat">
