@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "vue": "^3.4.37",
-    "vue-snacks": "^0.0.10"
+    "vue-snacks": "^1.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",

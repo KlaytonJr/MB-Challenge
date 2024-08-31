@@ -36,8 +36,9 @@ async function getForm() {
             position: "top-center",
             type: "error",
             duration: 3000,
-            title: "Enviado",
+            title: "Error",
             message: 'Erro ao carregar o formulário.',
+            icon: "exclamation-triangle"
         });
     }
 }
@@ -144,8 +145,9 @@ function validateStep(step) {
             position: "top-center",
             type: "error",
             duration: 3000,
-            title: "Enviado",
+            title: "Error",
             message,
+            icon: "exclamation-triangle"
         });
         return false;
     };
@@ -256,6 +258,7 @@ async function submitForm() {
                 duration: 3000,
                 title: "Enviado",
                 message: result.message,
+                icon: "check-circle"
             });
 
             reset();
@@ -264,8 +267,9 @@ async function submitForm() {
                 position: "top-center",
                 type: "error",
                 duration: 3000,
-                title: "Enviado",
+                title: "Error",
                 message: result.error || 'Ocorreu um erro ao enviar o formulário.',
+                icon: "exclamation-triangle"
             });
         }
     } catch (error) {
@@ -273,8 +277,9 @@ async function submitForm() {
             position: "top-center",
             type: "error",
             duration: 3000,
-            title: "Enviado",
+            title: "Error",
             message: 'Erro ao enviar o formulário. Tente novamente mais tarde.',
+            icon: "exclamation-triangle"
         });
     }
 }
